@@ -48,17 +48,25 @@
             this.BodiesLabel = new System.Windows.Forms.Label();
             this.headLabel = new System.Windows.Forms.Label();
             this.roomsTab = new System.Windows.Forms.TabPage();
-            this.autoConCheck = new System.Windows.Forms.CheckBox();
-            this.roomAddBtn = new System.Windows.Forms.Button();
+            this.gridPanel = new System.Windows.Forms.TableLayoutPanel();
             this.popUpDown = new System.Windows.Forms.NumericUpDown();
             this.popBar = new System.Windows.Forms.TrackBar();
             this.popLabel = new System.Windows.Forms.Label();
             this.roomProbUpDown = new System.Windows.Forms.NumericUpDown();
             this.roomProbBar = new System.Windows.Forms.TrackBar();
             this.probLabel2 = new System.Windows.Forms.Label();
+            this.startRoomBtn = new System.Windows.Forms.Button();
+            this.SpawnTables = new System.Windows.Forms.ComboBox();
+            this.spawnLabel = new System.Windows.Forms.Label();
+            this.roomDelBtn = new System.Windows.Forms.Button();
+            this.roomTree = new System.Windows.Forms.TreeView();
+            this.autoConCheck = new System.Windows.Forms.CheckBox();
+            this.roomAddBtn = new System.Windows.Forms.Button();
             this.Rooms = new System.Windows.Forms.ComboBox();
             this.roomsLabels = new System.Windows.Forms.Label();
             this.WIP = new System.Windows.Forms.TabPage();
+            this.ColUpDown = new System.Windows.Forms.NumericUpDown();
+            this.RowUpDown = new System.Windows.Forms.NumericUpDown();
             this.DropLabel = new System.Windows.Forms.Label();
             this.DropUpDown = new System.Windows.Forms.NumericUpDown();
             this.DropBar = new System.Windows.Forms.TrackBar();
@@ -66,14 +74,10 @@
             this.FilenameText = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.roomTree = new System.Windows.Forms.TreeView();
-            this.ColUpDown = new System.Windows.Forms.NumericUpDown();
-            this.RowUpDown = new System.Windows.Forms.NumericUpDown();
-            this.roomDelBtn = new System.Windows.Forms.Button();
-            this.spawnLabel = new System.Windows.Forms.Label();
-            this.SpawnTables = new System.Windows.Forms.ComboBox();
-            this.startRoomBtn = new System.Windows.Forms.Button();
-            this.gridPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.roomUpBtn = new System.Windows.Forms.Button();
+            this.roomLeftBtn = new System.Windows.Forms.Button();
+            this.roomRightBtn = new System.Windows.Forms.Button();
+            this.roomDownBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ProbabilityBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ProbUpDown)).BeginInit();
             this.Tabs.SuspendLayout();
@@ -84,10 +88,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.roomProbUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.roomProbBar)).BeginInit();
             this.WIP.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DropUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DropBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ColUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RowUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DropUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DropBar)).BeginInit();
             this.SuspendLayout();
             // 
             // Heads
@@ -295,6 +299,10 @@
             // 
             // roomsTab
             // 
+            this.roomsTab.Controls.Add(this.roomDownBtn);
+            this.roomsTab.Controls.Add(this.roomRightBtn);
+            this.roomsTab.Controls.Add(this.roomLeftBtn);
+            this.roomsTab.Controls.Add(this.roomUpBtn);
             this.roomsTab.Controls.Add(this.gridPanel);
             this.roomsTab.Controls.Add(this.popUpDown);
             this.roomsTab.Controls.Add(this.popBar);
@@ -319,27 +327,16 @@
             this.roomsTab.Text = "Rooms";
             this.roomsTab.UseVisualStyleBackColor = true;
             // 
-            // autoConCheck
+            // gridPanel
             // 
-            this.autoConCheck.AutoSize = true;
-            this.autoConCheck.Checked = true;
-            this.autoConCheck.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.autoConCheck.Location = new System.Drawing.Point(245, 261);
-            this.autoConCheck.Name = "autoConCheck";
-            this.autoConCheck.Size = new System.Drawing.Size(121, 17);
-            this.autoConCheck.TabIndex = 34;
-            this.autoConCheck.Text = "Auto Conect Rooms";
-            this.autoConCheck.UseVisualStyleBackColor = true;
-            // 
-            // roomAddBtn
-            // 
-            this.roomAddBtn.Location = new System.Drawing.Point(112, 231);
-            this.roomAddBtn.Name = "roomAddBtn";
-            this.roomAddBtn.Size = new System.Drawing.Size(75, 23);
-            this.roomAddBtn.TabIndex = 26;
-            this.roomAddBtn.Text = "Add Room";
-            this.roomAddBtn.UseVisualStyleBackColor = true;
-            this.roomAddBtn.Click += new System.EventHandler(this.roomAddBtn_Click);
+            this.gridPanel.ColumnCount = 1;
+            this.gridPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 275F));
+            this.gridPanel.Location = new System.Drawing.Point(372, 5);
+            this.gridPanel.Name = "gridPanel";
+            this.gridPanel.RowCount = 1;
+            this.gridPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 275F));
+            this.gridPanel.Size = new System.Drawing.Size(275, 275);
+            this.gridPanel.TabIndex = 40;
             // 
             // popUpDown
             // 
@@ -407,6 +404,76 @@
             this.probLabel2.TabIndex = 20;
             this.probLabel2.Text = "Probility";
             // 
+            // startRoomBtn
+            // 
+            this.startRoomBtn.Location = new System.Drawing.Point(193, 231);
+            this.startRoomBtn.Name = "startRoomBtn";
+            this.startRoomBtn.Size = new System.Drawing.Size(106, 23);
+            this.startRoomBtn.TabIndex = 39;
+            this.startRoomBtn.Text = "Tag Starting Room";
+            this.startRoomBtn.UseVisualStyleBackColor = true;
+            this.startRoomBtn.Click += new System.EventHandler(this.startRoomBtn_Click);
+            // 
+            // SpawnTables
+            // 
+            this.SpawnTables.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.SpawnTables.FormattingEnabled = true;
+            this.SpawnTables.Location = new System.Drawing.Point(6, 66);
+            this.SpawnTables.Name = "SpawnTables";
+            this.SpawnTables.Size = new System.Drawing.Size(100, 21);
+            this.SpawnTables.TabIndex = 38;
+            // 
+            // spawnLabel
+            // 
+            this.spawnLabel.AutoSize = true;
+            this.spawnLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.spawnLabel.Location = new System.Drawing.Point(3, 49);
+            this.spawnLabel.Name = "spawnLabel";
+            this.spawnLabel.Size = new System.Drawing.Size(72, 13);
+            this.spawnLabel.TabIndex = 37;
+            this.spawnLabel.Text = "SpawnTables";
+            // 
+            // roomDelBtn
+            // 
+            this.roomDelBtn.Location = new System.Drawing.Point(112, 258);
+            this.roomDelBtn.Name = "roomDelBtn";
+            this.roomDelBtn.Size = new System.Drawing.Size(75, 23);
+            this.roomDelBtn.TabIndex = 36;
+            this.roomDelBtn.Text = "Remove";
+            this.roomDelBtn.UseVisualStyleBackColor = true;
+            this.roomDelBtn.Click += new System.EventHandler(this.roomDelBtn_Click);
+            // 
+            // roomTree
+            // 
+            this.roomTree.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.roomTree.HideSelection = false;
+            this.roomTree.Location = new System.Drawing.Point(112, 6);
+            this.roomTree.Name = "roomTree";
+            this.roomTree.Size = new System.Drawing.Size(254, 219);
+            this.roomTree.TabIndex = 35;
+            // 
+            // autoConCheck
+            // 
+            this.autoConCheck.AutoSize = true;
+            this.autoConCheck.Checked = true;
+            this.autoConCheck.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.autoConCheck.Location = new System.Drawing.Point(191, 263);
+            this.autoConCheck.Name = "autoConCheck";
+            this.autoConCheck.Size = new System.Drawing.Size(121, 17);
+            this.autoConCheck.TabIndex = 34;
+            this.autoConCheck.Text = "Auto Conect Rooms";
+            this.autoConCheck.UseVisualStyleBackColor = true;
+            // 
+            // roomAddBtn
+            // 
+            this.roomAddBtn.Location = new System.Drawing.Point(112, 231);
+            this.roomAddBtn.Name = "roomAddBtn";
+            this.roomAddBtn.Size = new System.Drawing.Size(75, 23);
+            this.roomAddBtn.TabIndex = 26;
+            this.roomAddBtn.Text = "Add Room";
+            this.roomAddBtn.UseVisualStyleBackColor = true;
+            this.roomAddBtn.Click += new System.EventHandler(this.roomAddBtn_Click);
+            // 
             // Rooms
             // 
             this.Rooms.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -440,6 +507,42 @@
             this.WIP.TabIndex = 2;
             this.WIP.Text = "WIP";
             this.WIP.UseVisualStyleBackColor = true;
+            // 
+            // ColUpDown
+            // 
+            this.ColUpDown.Location = new System.Drawing.Point(254, 211);
+            this.ColUpDown.Maximum = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            this.ColUpDown.Name = "ColUpDown";
+            this.ColUpDown.ReadOnly = true;
+            this.ColUpDown.Size = new System.Drawing.Size(38, 20);
+            this.ColUpDown.TabIndex = 34;
+            this.ColUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // RowUpDown
+            // 
+            this.RowUpDown.Location = new System.Drawing.Point(298, 211);
+            this.RowUpDown.Maximum = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            this.RowUpDown.Name = "RowUpDown";
+            this.RowUpDown.ReadOnly = true;
+            this.RowUpDown.Size = new System.Drawing.Size(38, 20);
+            this.RowUpDown.TabIndex = 33;
+            this.RowUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // DropLabel
             // 
@@ -503,100 +606,41 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // roomTree
+            // roomUpBtn
             // 
-            this.roomTree.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.roomTree.HideSelection = false;
-            this.roomTree.Location = new System.Drawing.Point(112, 6);
-            this.roomTree.Name = "roomTree";
-            this.roomTree.Size = new System.Drawing.Size(254, 219);
-            this.roomTree.TabIndex = 35;
+            this.roomUpBtn.Location = new System.Drawing.Point(326, 230);
+            this.roomUpBtn.Name = "roomUpBtn";
+            this.roomUpBtn.Size = new System.Drawing.Size(20, 20);
+            this.roomUpBtn.TabIndex = 41;
+            this.roomUpBtn.Text = "^";
+            this.roomUpBtn.UseVisualStyleBackColor = true;
             // 
-            // ColUpDown
+            // roomLeftBtn
             // 
-            this.ColUpDown.Location = new System.Drawing.Point(254, 211);
-            this.ColUpDown.Maximum = new decimal(new int[] {
-            25,
-            0,
-            0,
-            0});
-            this.ColUpDown.Name = "ColUpDown";
-            this.ColUpDown.ReadOnly = true;
-            this.ColUpDown.Size = new System.Drawing.Size(38, 20);
-            this.ColUpDown.TabIndex = 34;
-            this.ColUpDown.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.roomLeftBtn.Location = new System.Drawing.Point(305, 237);
+            this.roomLeftBtn.Name = "roomLeftBtn";
+            this.roomLeftBtn.Size = new System.Drawing.Size(20, 20);
+            this.roomLeftBtn.TabIndex = 42;
+            this.roomLeftBtn.Text = "<";
+            this.roomLeftBtn.UseVisualStyleBackColor = true;
             // 
-            // RowUpDown
+            // roomRightBtn
             // 
-            this.RowUpDown.Location = new System.Drawing.Point(298, 211);
-            this.RowUpDown.Maximum = new decimal(new int[] {
-            25,
-            0,
-            0,
-            0});
-            this.RowUpDown.Name = "RowUpDown";
-            this.RowUpDown.ReadOnly = true;
-            this.RowUpDown.Size = new System.Drawing.Size(38, 20);
-            this.RowUpDown.TabIndex = 33;
-            this.RowUpDown.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.roomRightBtn.Location = new System.Drawing.Point(347, 237);
+            this.roomRightBtn.Name = "roomRightBtn";
+            this.roomRightBtn.Size = new System.Drawing.Size(20, 20);
+            this.roomRightBtn.TabIndex = 43;
+            this.roomRightBtn.Text = ">";
+            this.roomRightBtn.UseVisualStyleBackColor = true;
             // 
-            // roomDelBtn
+            // roomDownBtn
             // 
-            this.roomDelBtn.Location = new System.Drawing.Point(112, 258);
-            this.roomDelBtn.Name = "roomDelBtn";
-            this.roomDelBtn.Size = new System.Drawing.Size(75, 23);
-            this.roomDelBtn.TabIndex = 36;
-            this.roomDelBtn.Text = "Remove";
-            this.roomDelBtn.UseVisualStyleBackColor = true;
-            this.roomDelBtn.Click += new System.EventHandler(this.roomDelBtn_Click);
-            // 
-            // spawnLabel
-            // 
-            this.spawnLabel.AutoSize = true;
-            this.spawnLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.spawnLabel.Location = new System.Drawing.Point(3, 49);
-            this.spawnLabel.Name = "spawnLabel";
-            this.spawnLabel.Size = new System.Drawing.Size(72, 13);
-            this.spawnLabel.TabIndex = 37;
-            this.spawnLabel.Text = "SpawnTables";
-            // 
-            // SpawnTables
-            // 
-            this.SpawnTables.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.SpawnTables.FormattingEnabled = true;
-            this.SpawnTables.Location = new System.Drawing.Point(6, 66);
-            this.SpawnTables.Name = "SpawnTables";
-            this.SpawnTables.Size = new System.Drawing.Size(100, 21);
-            this.SpawnTables.TabIndex = 38;
-            // 
-            // startRoomBtn
-            // 
-            this.startRoomBtn.Location = new System.Drawing.Point(193, 231);
-            this.startRoomBtn.Name = "startRoomBtn";
-            this.startRoomBtn.Size = new System.Drawing.Size(106, 23);
-            this.startRoomBtn.TabIndex = 39;
-            this.startRoomBtn.Text = "Tag Starting Room";
-            this.startRoomBtn.UseVisualStyleBackColor = true;
-            this.startRoomBtn.Click += new System.EventHandler(this.startRoomBtn_Click);
-            // 
-            // gridPanel
-            // 
-            this.gridPanel.ColumnCount = 1;
-            this.gridPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 13F));
-            this.gridPanel.Location = new System.Drawing.Point(372, 5);
-            this.gridPanel.Name = "gridPanel";
-            this.gridPanel.RowCount = 1;
-            this.gridPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 13F));
-            this.gridPanel.Size = new System.Drawing.Size(275, 275);
-            this.gridPanel.TabIndex = 40;
+            this.roomDownBtn.Location = new System.Drawing.Point(326, 250);
+            this.roomDownBtn.Name = "roomDownBtn";
+            this.roomDownBtn.Size = new System.Drawing.Size(20, 20);
+            this.roomDownBtn.TabIndex = 44;
+            this.roomDownBtn.Text = "v";
+            this.roomDownBtn.UseVisualStyleBackColor = true;
             // 
             // TableGen
             // 
@@ -623,10 +667,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.roomProbBar)).EndInit();
             this.WIP.ResumeLayout(false);
             this.WIP.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DropUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DropBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ColUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RowUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DropUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DropBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -680,6 +724,10 @@
         private System.Windows.Forms.Label spawnLabel;
         private System.Windows.Forms.Button startRoomBtn;
         private System.Windows.Forms.TableLayoutPanel gridPanel;
+        private System.Windows.Forms.Button roomDownBtn;
+        private System.Windows.Forms.Button roomRightBtn;
+        private System.Windows.Forms.Button roomLeftBtn;
+        private System.Windows.Forms.Button roomUpBtn;
     }
 }
 

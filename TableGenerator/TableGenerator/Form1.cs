@@ -35,8 +35,8 @@ namespace TableGenerator
             Bodys.SelectedIndex = 0;
             Legs.SelectedIndex = 0;
             basePath = arg;
-            FillBoxes();
             FillTable(25, 25);
+            FillBoxes();
         }
 
         public TableGen(string arg1, string arg2)
@@ -47,9 +47,9 @@ namespace TableGenerator
             Legs.SelectedIndex = 0;
             basePath = arg1;
             FillBoxes();
-            LoadFile(arg1 + "\\Project\\Assets\\Resources\\XML\\" + arg2);
-            FilenameText.Text = arg2.Remove(arg2.Length - 4, 4);
             FillTable(25, 25);
+            LoadFile(arg1 + "\\Project\\Assets\\Resources\\XML\\SpawnTables\\" + arg2);
+            FilenameText.Text = arg2.Remove(arg2.Length - 4, 4);
         }
 
         private void FillTable(int columns, int rows)
@@ -331,7 +331,7 @@ namespace TableGenerator
 
                 SpawnTables.Items.Clear();
 
-                string[] spawns = Directory.GetFiles(reasourcePath + "\\XML");
+                string[] spawns = Directory.GetFiles(reasourcePath + "\\XML\\SpawnTables");
 
                 foreach (string thing in spawns)
                 {
@@ -571,8 +571,14 @@ namespace TableGenerator
             }
             else
             {
-                string[] files = System.IO.Directory.GetFiles(basePath + "\\Project\\Assets\\Resources\\XML");
-                filename = basePath + "\\Project\\Assets\\Resources\\XML\\" + filename + ".xml";
+                string thisPath = "";
+                if (Tabs.SelectedTab.Text == "Enemy")
+                    thisPath = basePath + "\\Project\\Assets\\Resources\\XML\\SpawnTables";
+                else if(Tabs.SelectedTab.Text == "Rooms")
+                    thisPath = basePath + "\\Project\\Assets\\Resources\\XML\\ArenaTables";
+
+                string[] files = System.IO.Directory.GetFiles(thisPath);
+                filename = thisPath + "\\" + filename + ".xml";
 
                 foreach (string thing in files)
                 {
@@ -847,6 +853,9 @@ namespace TableGenerator
 
                         writer.WriteEndElement();           //Arena
                         writer.WriteEndDocument();
+
+                        MessageBox.Show("Table exported to Xml file", "",
+                            MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     }
                 }
             }
@@ -899,6 +908,8 @@ namespace TableGenerator
 
                         enemyTree.Nodes[waveCount - 1].Expand();
                     }
+
+                    Tabs.SelectTab(0);
                 }
                 else if (loader.ChildNodes[1].Name == "Arena")
                 {
@@ -906,24 +917,97 @@ namespace TableGenerator
                     XmlNode start = loader.ChildNodes[1].ChildNodes[1];
                     XmlNode table = loader.ChildNodes[1].ChildNodes[2];
 
+                    foreach (TreeNode item in roomTree.Nodes)
+                    {
+                        if (item.Text.Contains("*S"))
+                            item.Text = item.Text.Remove(item.Text.Length - 16, 16);
+                        item.Nodes.Clear();
+                    }
+
+                    foreach (Button item in gridPanel.Controls)
+                    {
+                        item.BackColor = Color.Transparent;
+                        item.FlatAppearance.MouseDownBackColor = item.BackColor;
+                        item.FlatAppearance.MouseOverBackColor = item.BackColor;
+                        popLabel.Focus();
+                    }
+
                     string startIndex = start.ChildNodes[0].InnerText;
 
                     foreach (XmlNode room in rooms.ChildNodes)
                     {
-                        string index = room.Attributes["Index"].Value;
+                        string index = room.Attributes["index"].Value;
                         int y = Convert.ToInt32(room.ChildNodes[0].InnerText);
                         int x = Convert.ToInt32(room.ChildNodes[1].InnerText);
                         string color = room.ChildNodes[2].InnerText;
-                        bool north = Convert.ToBoolean(room.ChildNodes[3].InnerText);
-                        bool south = Convert.ToBoolean(room.ChildNodes[4].InnerText);
-                        bool east = Convert.ToBoolean(room.ChildNodes[5].InnerText);
-                        bool west = Convert.ToBoolean(room.ChildNodes[6].InnerText);
-                        
-                        if(index == startIndex)
+                        int north = Convert.ToInt32(room.ChildNodes[3].InnerText);
+                        int south = Convert.ToInt32(room.ChildNodes[4].InnerText);
+                        int east = Convert.ToInt32(room.ChildNodes[5].InnerText);
+                        int west = Convert.ToInt32(room.ChildNodes[6].InnerText);
+
+                        Button btn = gridPanel.GetControlFromPosition((x * 2), (y * 2)) as Button;
+                        btn.BackColor = Color.FromName(color);
+                        btn.FlatAppearance.MouseDownBackColor = btn.BackColor;
+                        btn.FlatAppearance.MouseOverBackColor = btn.BackColor;
+                        popLabel.Focus();
+
+                        if(north != -1)
+                        {
+                            btn = gridPanel.GetControlFromPosition((x * 2), (y * 2) - 1) as Button;
+                            btn.BackColor = Color.Gray;
+                            btn.FlatAppearance.MouseDownBackColor = btn.BackColor;
+                            btn.FlatAppearance.MouseOverBackColor = btn.BackColor;
+                            popLabel.Focus();
+                        }
+                        if (south != -1)
+                        {
+                            btn = gridPanel.GetControlFromPosition((x * 2), (y * 2) + 1) as Button;
+                            btn.BackColor = Color.Gray;
+                            btn.FlatAppearance.MouseDownBackColor = btn.BackColor;
+                            btn.FlatAppearance.MouseOverBackColor = btn.BackColor;
+                            popLabel.Focus();
+                        }
+                        if (east != -1)
+                        {
+                            btn = gridPanel.GetControlFromPosition((x * 2) + 1, (y * 2)) as Button;
+                            btn.BackColor = Color.Gray;
+                            btn.FlatAppearance.MouseDownBackColor = btn.BackColor;
+                            btn.FlatAppearance.MouseOverBackColor = btn.BackColor;
+                            popLabel.Focus();
+                        }
+                        if (west != -1)
+                        {
+                            btn = gridPanel.GetControlFromPosition((x * 2) - 1, (y * 2)) as Button;
+                            btn.BackColor = Color.Gray;
+                            btn.FlatAppearance.MouseDownBackColor = btn.BackColor;
+                            btn.FlatAppearance.MouseOverBackColor = btn.BackColor;
+                            popLabel.Focus();
+                        }
+
+                        if (index == startIndex)
                             foreach (TreeNode item in roomTree.Nodes)
                                 if (item.Text == color)
                                     item.Text += " *Starting Room*";
                     }
+
+                    foreach (XmlNode item in table)
+                    {
+                        foreach (TreeNode node in roomTree.Nodes)
+                            if (node.Text.Contains(item.Name))
+                            {
+                                foreach (XmlNode setup in item)
+                                {
+                                    string scene = setup.ChildNodes[0].InnerText;
+                                    string spawn = setup.ChildNodes[1].InnerText;
+                                    string pop = setup.ChildNodes[2].InnerText;
+                                    string prob = setup.ChildNodes[3].InnerText;
+                                    node.Nodes.Add(scene + "/" + spawn + "/" + pop + "/" + prob);
+                                }
+                                node.Expand();
+                            }
+                    }
+
+                    Tabs.SelectTab(1);
                 }
             }
             else

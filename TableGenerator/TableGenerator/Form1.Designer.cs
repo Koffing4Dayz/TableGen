@@ -48,6 +48,10 @@
             this.BodiesLabel = new System.Windows.Forms.Label();
             this.headLabel = new System.Windows.Forms.Label();
             this.roomsTab = new System.Windows.Forms.TabPage();
+            this.roomDownBtn = new System.Windows.Forms.Button();
+            this.roomRightBtn = new System.Windows.Forms.Button();
+            this.roomLeftBtn = new System.Windows.Forms.Button();
+            this.roomUpBtn = new System.Windows.Forms.Button();
             this.gridPanel = new System.Windows.Forms.TableLayoutPanel();
             this.popUpDown = new System.Windows.Forms.NumericUpDown();
             this.popBar = new System.Windows.Forms.TrackBar();
@@ -67,17 +71,17 @@
             this.WIP = new System.Windows.Forms.TabPage();
             this.ColUpDown = new System.Windows.Forms.NumericUpDown();
             this.RowUpDown = new System.Windows.Forms.NumericUpDown();
-            this.DropLabel = new System.Windows.Forms.Label();
-            this.DropUpDown = new System.Windows.Forms.NumericUpDown();
-            this.DropBar = new System.Windows.Forms.TrackBar();
+            this.ChanBar = new System.Windows.Forms.TrackBar();
             this.exportBtn = new System.Windows.Forms.Button();
             this.FilenameText = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.roomUpBtn = new System.Windows.Forms.Button();
-            this.roomLeftBtn = new System.Windows.Forms.Button();
-            this.roomRightBtn = new System.Windows.Forms.Button();
-            this.roomDownBtn = new System.Windows.Forms.Button();
+            this.ChanLabel = new System.Windows.Forms.Label();
+            this.ChanUpDown = new System.Windows.Forms.NumericUpDown();
+            this.ChanBtn = new System.Windows.Forms.Button();
+            this.CountBtn = new System.Windows.Forms.Button();
+            this.CountLabel = new System.Windows.Forms.Label();
+            this.CountUpDown = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.ProbabilityBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ProbUpDown)).BeginInit();
             this.Tabs.SuspendLayout();
@@ -90,8 +94,9 @@
             this.WIP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ColUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RowUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DropUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DropBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ChanBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ChanUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CountUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // Heads
@@ -234,6 +239,12 @@
             // 
             // enemyTab
             // 
+            this.enemyTab.Controls.Add(this.CountBtn);
+            this.enemyTab.Controls.Add(this.CountLabel);
+            this.enemyTab.Controls.Add(this.CountUpDown);
+            this.enemyTab.Controls.Add(this.ChanBtn);
+            this.enemyTab.Controls.Add(this.ChanLabel);
+            this.enemyTab.Controls.Add(this.ChanUpDown);
             this.enemyTab.Controls.Add(this.ProbLabel);
             this.enemyTab.Controls.Add(this.LegsLabel);
             this.enemyTab.Controls.Add(this.BodiesLabel);
@@ -326,6 +337,46 @@
             this.roomsTab.TabIndex = 1;
             this.roomsTab.Text = "Rooms";
             this.roomsTab.UseVisualStyleBackColor = true;
+            // 
+            // roomDownBtn
+            // 
+            this.roomDownBtn.Location = new System.Drawing.Point(326, 250);
+            this.roomDownBtn.Name = "roomDownBtn";
+            this.roomDownBtn.Size = new System.Drawing.Size(20, 20);
+            this.roomDownBtn.TabIndex = 44;
+            this.roomDownBtn.Text = "v";
+            this.roomDownBtn.UseVisualStyleBackColor = true;
+            this.roomDownBtn.Click += new System.EventHandler(this.roomDownBtn_Click);
+            // 
+            // roomRightBtn
+            // 
+            this.roomRightBtn.Location = new System.Drawing.Point(347, 237);
+            this.roomRightBtn.Name = "roomRightBtn";
+            this.roomRightBtn.Size = new System.Drawing.Size(20, 20);
+            this.roomRightBtn.TabIndex = 43;
+            this.roomRightBtn.Text = ">";
+            this.roomRightBtn.UseVisualStyleBackColor = true;
+            this.roomRightBtn.Click += new System.EventHandler(this.roomRightBtn_Click);
+            // 
+            // roomLeftBtn
+            // 
+            this.roomLeftBtn.Location = new System.Drawing.Point(305, 237);
+            this.roomLeftBtn.Name = "roomLeftBtn";
+            this.roomLeftBtn.Size = new System.Drawing.Size(20, 20);
+            this.roomLeftBtn.TabIndex = 42;
+            this.roomLeftBtn.Text = "<";
+            this.roomLeftBtn.UseVisualStyleBackColor = true;
+            this.roomLeftBtn.Click += new System.EventHandler(this.roomLeftBtn_Click);
+            // 
+            // roomUpBtn
+            // 
+            this.roomUpBtn.Location = new System.Drawing.Point(326, 230);
+            this.roomUpBtn.Name = "roomUpBtn";
+            this.roomUpBtn.Size = new System.Drawing.Size(20, 20);
+            this.roomUpBtn.TabIndex = 41;
+            this.roomUpBtn.Text = "^";
+            this.roomUpBtn.UseVisualStyleBackColor = true;
+            this.roomUpBtn.Click += new System.EventHandler(this.roomUpBtn_Click);
             // 
             // gridPanel
             // 
@@ -497,9 +548,7 @@
             // 
             this.WIP.Controls.Add(this.ColUpDown);
             this.WIP.Controls.Add(this.RowUpDown);
-            this.WIP.Controls.Add(this.DropLabel);
-            this.WIP.Controls.Add(this.DropUpDown);
-            this.WIP.Controls.Add(this.DropBar);
+            this.WIP.Controls.Add(this.ChanBar);
             this.WIP.Location = new System.Drawing.Point(4, 22);
             this.WIP.Name = "WIP";
             this.WIP.Padding = new System.Windows.Forms.Padding(3);
@@ -544,36 +593,14 @@
             0,
             0});
             // 
-            // DropLabel
+            // ChanBar
             // 
-            this.DropLabel.AutoSize = true;
-            this.DropLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DropLabel.Location = new System.Drawing.Point(275, 97);
-            this.DropLabel.Name = "DropLabel";
-            this.DropLabel.Size = new System.Drawing.Size(70, 13);
-            this.DropLabel.TabIndex = 32;
-            this.DropLabel.Text = "Drop Chance";
-            // 
-            // DropUpDown
-            // 
-            this.DropUpDown.Location = new System.Drawing.Point(278, 118);
-            this.DropUpDown.Name = "DropUpDown";
-            this.DropUpDown.Size = new System.Drawing.Size(100, 20);
-            this.DropUpDown.TabIndex = 31;
-            this.DropUpDown.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            // 
-            // DropBar
-            // 
-            this.DropBar.Location = new System.Drawing.Point(278, 144);
-            this.DropBar.Maximum = 100;
-            this.DropBar.Name = "DropBar";
-            this.DropBar.Size = new System.Drawing.Size(100, 45);
-            this.DropBar.TabIndex = 30;
-            this.DropBar.Value = 100;
+            this.ChanBar.Location = new System.Drawing.Point(278, 144);
+            this.ChanBar.Maximum = 100;
+            this.ChanBar.Name = "ChanBar";
+            this.ChanBar.Size = new System.Drawing.Size(100, 45);
+            this.ChanBar.TabIndex = 30;
+            this.ChanBar.Value = 100;
             // 
             // exportBtn
             // 
@@ -606,41 +633,59 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // roomUpBtn
+            // ChanLabel
             // 
-            this.roomUpBtn.Location = new System.Drawing.Point(326, 230);
-            this.roomUpBtn.Name = "roomUpBtn";
-            this.roomUpBtn.Size = new System.Drawing.Size(20, 20);
-            this.roomUpBtn.TabIndex = 41;
-            this.roomUpBtn.Text = "^";
-            this.roomUpBtn.UseVisualStyleBackColor = true;
+            this.ChanLabel.AutoSize = true;
+            this.ChanLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ChanLabel.Location = new System.Drawing.Point(6, 140);
+            this.ChanLabel.Name = "ChanLabel";
+            this.ChanLabel.Size = new System.Drawing.Size(91, 13);
+            this.ChanLabel.TabIndex = 34;
+            this.ChanLabel.Text = "Spawner Channel";
             // 
-            // roomLeftBtn
+            // ChanUpDown
             // 
-            this.roomLeftBtn.Location = new System.Drawing.Point(305, 237);
-            this.roomLeftBtn.Name = "roomLeftBtn";
-            this.roomLeftBtn.Size = new System.Drawing.Size(20, 20);
-            this.roomLeftBtn.TabIndex = 42;
-            this.roomLeftBtn.Text = "<";
-            this.roomLeftBtn.UseVisualStyleBackColor = true;
+            this.ChanUpDown.Location = new System.Drawing.Point(9, 156);
+            this.ChanUpDown.Name = "ChanUpDown";
+            this.ChanUpDown.Size = new System.Drawing.Size(47, 20);
+            this.ChanUpDown.TabIndex = 33;
             // 
-            // roomRightBtn
+            // ChanBtn
             // 
-            this.roomRightBtn.Location = new System.Drawing.Point(347, 237);
-            this.roomRightBtn.Name = "roomRightBtn";
-            this.roomRightBtn.Size = new System.Drawing.Size(20, 20);
-            this.roomRightBtn.TabIndex = 43;
-            this.roomRightBtn.Text = ">";
-            this.roomRightBtn.UseVisualStyleBackColor = true;
+            this.ChanBtn.Location = new System.Drawing.Point(61, 154);
+            this.ChanBtn.Name = "ChanBtn";
+            this.ChanBtn.Size = new System.Drawing.Size(75, 23);
+            this.ChanBtn.TabIndex = 35;
+            this.ChanBtn.Text = "Set Channel";
+            this.ChanBtn.UseVisualStyleBackColor = true;
+            this.ChanBtn.Click += new System.EventHandler(this.ChanBtn_Click);
             // 
-            // roomDownBtn
+            // CountBtn
             // 
-            this.roomDownBtn.Location = new System.Drawing.Point(326, 250);
-            this.roomDownBtn.Name = "roomDownBtn";
-            this.roomDownBtn.Size = new System.Drawing.Size(20, 20);
-            this.roomDownBtn.TabIndex = 44;
-            this.roomDownBtn.Text = "v";
-            this.roomDownBtn.UseVisualStyleBackColor = true;
+            this.CountBtn.Location = new System.Drawing.Point(61, 194);
+            this.CountBtn.Name = "CountBtn";
+            this.CountBtn.Size = new System.Drawing.Size(75, 23);
+            this.CountBtn.TabIndex = 38;
+            this.CountBtn.Text = "Set Count";
+            this.CountBtn.UseVisualStyleBackColor = true;
+            this.CountBtn.Click += new System.EventHandler(this.CountBtn_Click);
+            // 
+            // CountLabel
+            // 
+            this.CountLabel.AutoSize = true;
+            this.CountLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CountLabel.Location = new System.Drawing.Point(6, 180);
+            this.CountLabel.Name = "CountLabel";
+            this.CountLabel.Size = new System.Drawing.Size(98, 13);
+            this.CountLabel.TabIndex = 37;
+            this.CountLabel.Text = "Enemies Per Wave";
+            // 
+            // CountUpDown
+            // 
+            this.CountUpDown.Location = new System.Drawing.Point(9, 196);
+            this.CountUpDown.Name = "CountUpDown";
+            this.CountUpDown.Size = new System.Drawing.Size(47, 20);
+            this.CountUpDown.TabIndex = 36;
             // 
             // TableGen
             // 
@@ -669,8 +714,9 @@
             this.WIP.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ColUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RowUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DropUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DropBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ChanBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ChanUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CountUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -712,9 +758,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.TabPage WIP;
-        private System.Windows.Forms.Label DropLabel;
-        private System.Windows.Forms.NumericUpDown DropUpDown;
-        private System.Windows.Forms.TrackBar DropBar;
+        private System.Windows.Forms.TrackBar ChanBar;
         private System.Windows.Forms.CheckBox autoConCheck;
         private System.Windows.Forms.TreeView roomTree;
         private System.Windows.Forms.Button roomDelBtn;
@@ -728,6 +772,12 @@
         private System.Windows.Forms.Button roomRightBtn;
         private System.Windows.Forms.Button roomLeftBtn;
         private System.Windows.Forms.Button roomUpBtn;
+        private System.Windows.Forms.Button CountBtn;
+        private System.Windows.Forms.Label CountLabel;
+        private System.Windows.Forms.NumericUpDown CountUpDown;
+        private System.Windows.Forms.Button ChanBtn;
+        private System.Windows.Forms.Label ChanLabel;
+        private System.Windows.Forms.NumericUpDown ChanUpDown;
     }
 }
 

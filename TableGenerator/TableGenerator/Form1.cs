@@ -373,7 +373,7 @@ namespace TableGenerator
         {
             waveCount++;
             enemyTree.BeginUpdate();
-            enemyTree.Nodes.Add("Wave" + waveCount);
+            enemyTree.Nodes.Add("Wave" + waveCount + " <Channel:0> <Count:0>");
             enemyTree.EndUpdate();
         }
 
@@ -602,7 +602,12 @@ namespace TableGenerator
                         foreach (TreeNode parent in enemyTree.Nodes)
                         {
                             writer.WriteStartElement("Wave");          //Waves
-                            writer.WriteAttributeString("Num", parent.Text.Remove(0, 4));
+                            string[] sep = new string[] { " ", "<", ":", ">" };
+                            string[] result = parent.Text.Split(sep, StringSplitOptions.RemoveEmptyEntries);
+
+                            writer.WriteAttributeString("Num", result[0].Remove(0, 4));
+                            writer.WriteAttributeString(result[1], result[2]);
+                            writer.WriteAttributeString(result[3], result[4]);
 
                             int eCount = 1;
                             foreach (TreeNode child in parent.Nodes)
@@ -863,12 +868,12 @@ namespace TableGenerator
 
         private void DropUpDown_ValueChanged(object sender, EventArgs e)
         {
-            DropBar.Value = (int)DropUpDown.Value;
+            ChanBar.Value = (int)ChanUpDown.Value;
         }
 
         private void DropBar_Scroll(object sender, EventArgs e)
         {
-            DropUpDown.Value = DropBar.Value;
+            ChanUpDown.Value = ChanBar.Value;
         }
 
         private void LoadFile(string filename)
@@ -887,9 +892,11 @@ namespace TableGenerator
 
                     foreach (XmlNode parent in table)
                     {
+                        string chan = " <" + parent.Attributes[1].Name + ":" + parent.Attributes[1].Value + ">";
+                        string count = " <" + parent.Attributes[2].Name + ":" + parent.Attributes[2].Value + ">";
                         waveCount++;
                         enemyTree.BeginUpdate();
-                        enemyTree.Nodes.Add("Wave" + waveCount);
+                        enemyTree.Nodes.Add("Wave" + waveCount + chan + count);
                         enemyTree.EndUpdate();
 
                         foreach (XmlNode child in parent)
@@ -1098,122 +1105,146 @@ namespace TableGenerator
             roomTree.SelectedNode.Text += " *Starting Room*";
         }
 
-        //private void RowUpDown_ValueChanged(object sender, EventArgs e)
-        //{
-        //    if (RowUpDown.Value < tableLayoutPanel1.RowCount)
-        //    {
-        //        SubRow();
-        //    }
-        //    else if (RowUpDown.Value > tableLayoutPanel1.RowCount)
-        //    {
-        //        AddRow();
-        //    }
-        //}
+        private void roomDownBtn_Click(object sender, EventArgs e)
+        {
+            ShiftRooms(-1, 0);
+        }
 
-        //private void ColUpDown_ValueChanged(object sender, EventArgs e)
-        //{
-        //    if (ColUpDown.Value < tableLayoutPanel1.ColumnCount)
-        //    {
-        //        SubCol();
-        //    }
-        //    else if (ColUpDown.Value > tableLayoutPanel1.ColumnCount)
-        //    {
-        //        AddCol();
-        //    }
-        //}
+        private void roomUpBtn_Click(object sender, EventArgs e)
+        {
+            ShiftRooms(1, 0);
+        }
 
-        //private void ScaleTable()
-        //{
-        //    tableLayoutPanel1.Width = tableLayoutPanel1.ColumnCount * cellSize;
-        //    tableLayoutPanel1.Height = tableLayoutPanel1.RowCount * cellSize;
-        //}
+        private void roomLeftBtn_Click(object sender, EventArgs e)
+        {
+            ShiftRooms(0, 1);
+        }
 
-        //private void AddCol()
-        //{
-        //    //tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, cellSize));
+        private void roomRightBtn_Click(object sender, EventArgs e)
+        {
+            ShiftRooms(0, -1);
+        }
 
-        //    //Button button;
-        //    //for (int i = 0; i < tableLayoutPanel1.RowCount; i++)
-        //    //{
-        //    //    button = new Button();
-        //    //    button.Visible = true;
-        //    //    button.Dock = DockStyle.Fill;
-        //    //    button.Margin = new Padding(0);
-        //    //    button.FlatStyle = FlatStyle.Flat;
-        //    //    button.FlatAppearance.BorderSize = 1;
-        //    //    button.FlatAppearance.MouseDownBackColor = Color.Transparent;
-        //    //    button.FlatAppearance.MouseOverBackColor = Color.Transparent;
-        //    //    button.ForeColor = BackColor;
+        private void ShiftRooms(int vert, int horz)
+        {
+            Color[,] colors = new Color[25, 25];
 
-        //    //    tableLayoutPanel1.Controls.Add(button, tableLayoutPanel1.ColumnCount, i);
-        //    //}
+            foreach (Button item in gridPanel.Controls)
+            {
+                int col = gridPanel.GetPositionFromControl(item).Column;
+                int row = gridPanel.GetPositionFromControl(item).Row;
+                colors[row, col] = item.BackColor;
+            }
 
-        //    tableLayoutPanel1.ColumnCount++;
-        //    ScaleTable();
-        //}
+            foreach (Button item in gridPanel.Controls)
+            {
+                int col = gridPanel.GetPositionFromControl(item).Column + (horz * 2);
+                int row = gridPanel.GetPositionFromControl(item).Row + (vert * 2);
+                if (col > 24 || col < 0 || row > 24 || row < 0)
+                    item.BackColor = Color.Transparent;
+                else
+                    item.BackColor = colors[row, col];
+            }
+        }
 
-        //private void AddRow()
-        //{
-        //    //tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, cellSize));
+        private void ChanBtn_Click(object sender, EventArgs e)
+        {
+            if (enemyTree.SelectedNode == null)
+            {
+                MessageBox.Show("Plese select a wave", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                return;
+            }
+            if (enemyTree.SelectedNode.Parent == null)
+            {
+                string text = enemyTree.SelectedNode.Text;
+                string temp = "";
+                int count = 0;
+                foreach (char letter in text)
+                {
+                    if (letter == ':')
+                    {
+                        int spot = count+1;
+                        bool control = true;
+                        int gap = -1;
+                        while (control)
+                            if (text[count] == '>')
+                            {
+                                control = false;
+                            }
+                            else
+                            {
+                                gap++;
+                                count++;
+                            }
+                        text = text.Remove(spot, gap);
+                        text = text.Insert(spot, ChanUpDown.Value.ToString());
+                        enemyTree.SelectedNode.Text = text;
+                        return;
+                    }
+                    temp += letter;
+                    count++;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Plese select a wave", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+        }
 
-        //    //Button button;
-        //    //for (int i = 0; i < tableLayoutPanel1.ColumnCount; i++)
-        //    //{
-        //    //    button = new Button();
-        //    //    button.Visible = true;
-        //    //    button.Dock = DockStyle.Fill;
-        //    //    button.Margin = new Padding(0);
-        //    //    button.FlatStyle = FlatStyle.Flat;
-        //    //    button.FlatAppearance.BorderSize = 1;
-        //    //    button.FlatAppearance.MouseDownBackColor = Color.Transparent;
-        //    //    button.FlatAppearance.MouseOverBackColor = Color.Transparent;
-        //    //    button.ForeColor = BackColor;
+        private void CountBtn_Click(object sender, EventArgs e)
+        {
+            if (enemyTree.SelectedNode == null)
+            {
+                MessageBox.Show("Plese select a wave", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                return;
+            }
+            if (enemyTree.SelectedNode.Parent == null)
+            {
+                bool skip = true;
+                string text = enemyTree.SelectedNode.Text;
+                string temp = "";
+                int count = 0;
+                foreach (char letter in text)
+                {
+                    if (letter == ':')
+                    {
+                        if (skip)
+                        {
+                            skip = false;
+                            count++;
+                            continue;
+                        }
 
-        //    //    tableLayoutPanel1.Controls.Add(button, i, tableLayoutPanel1.RowCount);
-        //    //}
-
-        //    tableLayoutPanel1.RowCount++;
-        //    ScaleTable();
-        //}
-
-        //private void SubCol()
-        //{
-        //    TableLayoutPanel panel = tableLayoutPanel1;
-        //    int index = panel.ColumnCount - 1;
-
-        //    //// delete all controls of row that we want to delete
-        //    //for (int i = 0; i < panel.RowCount; i++)
-        //    //{
-        //    //    var control = panel.GetControlFromPosition(i, index);
-        //    //    panel.Controls.Remove(control);
-        //    //}
-
-        //    //// remove last row
-        //    //panel.ColumnStyles.RemoveAt(panel.ColumnCount - 1);
-        //    //panel.ColumnStyles[index].Width = 0;
-
-        //    panel.ColumnCount--;
-
-        //    ScaleTable();
-        //}
-
-        //private void SubRow()
-        //{
-        //    TableLayoutPanel panel = tableLayoutPanel1;
-        //    int index = panel.RowCount - 1;
-
-        //    //// delete all controls of row that we want to delete
-        //    //for (int i = 0; i < panel.ColumnCount; i++)
-        //    //{
-        //    //    var control = panel.GetControlFromPosition(i, index);
-        //    //    panel.Controls.Remove(control);
-        //    //}
-
-        //    //// remove last row
-        //    //panel.RowStyles.RemoveAt(panel.RowCount - 1);
-        //    panel.RowCount--;
-
-        //    ScaleTable();
-        //}
+                        int spot = count + 1;
+                        bool control = true;
+                        int gap = -1;
+                        while (control)
+                            if (text[count] == '>')
+                            {
+                                control = false;
+                            }
+                            else
+                            {
+                                gap++;
+                                count++;
+                            }
+                        text = text.Remove(spot, gap);
+                        text = text.Insert(spot, CountUpDown.Value.ToString());
+                        enemyTree.SelectedNode.Text = text;
+                        return;
+                    }
+                    temp += letter;
+                    count++;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Plese select a wave", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+        }
     }
 }

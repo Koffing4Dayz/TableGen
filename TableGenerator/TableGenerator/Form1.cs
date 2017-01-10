@@ -373,7 +373,7 @@ namespace TableGenerator
         {
             waveCount++;
             enemyTree.BeginUpdate();
-            enemyTree.Nodes.Add("Wave" + waveCount + " <Channel:0> <Count:0>");
+            enemyTree.Nodes.Add("Wave" + waveCount + " <Channel:0> <Size:0>");
             enemyTree.EndUpdate();
         }
 
@@ -1193,7 +1193,7 @@ namespace TableGenerator
             }
         }
 
-        private void CountBtn_Click(object sender, EventArgs e)
+        private void SizeBtn_Click(object sender, EventArgs e)
         {
             if (enemyTree.SelectedNode == null)
             {
@@ -1232,7 +1232,7 @@ namespace TableGenerator
                                 count++;
                             }
                         text = text.Remove(spot, gap);
-                        text = text.Insert(spot, CountUpDown.Value.ToString());
+                        text = text.Insert(spot, SizeUpDown.Value.ToString());
                         enemyTree.SelectedNode.Text = text;
                         return;
                     }

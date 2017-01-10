@@ -43,6 +43,12 @@
             this.ProbUpDown = new System.Windows.Forms.NumericUpDown();
             this.Tabs = new System.Windows.Forms.TabControl();
             this.enemyTab = new System.Windows.Forms.TabPage();
+            this.SizeBtn = new System.Windows.Forms.Button();
+            this.SizeLabel = new System.Windows.Forms.Label();
+            this.SizeUpDown = new System.Windows.Forms.NumericUpDown();
+            this.ChanBtn = new System.Windows.Forms.Button();
+            this.ChanLabel = new System.Windows.Forms.Label();
+            this.ChanUpDown = new System.Windows.Forms.NumericUpDown();
             this.ProbLabel = new System.Windows.Forms.Label();
             this.LegsLabel = new System.Windows.Forms.Label();
             this.BodiesLabel = new System.Windows.Forms.Label();
@@ -76,16 +82,12 @@
             this.FilenameText = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.ChanLabel = new System.Windows.Forms.Label();
-            this.ChanUpDown = new System.Windows.Forms.NumericUpDown();
-            this.ChanBtn = new System.Windows.Forms.Button();
-            this.CountBtn = new System.Windows.Forms.Button();
-            this.CountLabel = new System.Windows.Forms.Label();
-            this.CountUpDown = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.ProbabilityBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ProbUpDown)).BeginInit();
             this.Tabs.SuspendLayout();
             this.enemyTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SizeUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ChanUpDown)).BeginInit();
             this.roomsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.popUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popBar)).BeginInit();
@@ -95,8 +97,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.ColUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RowUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChanBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ChanUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CountUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // Heads
@@ -239,9 +239,9 @@
             // 
             // enemyTab
             // 
-            this.enemyTab.Controls.Add(this.CountBtn);
-            this.enemyTab.Controls.Add(this.CountLabel);
-            this.enemyTab.Controls.Add(this.CountUpDown);
+            this.enemyTab.Controls.Add(this.SizeBtn);
+            this.enemyTab.Controls.Add(this.SizeLabel);
+            this.enemyTab.Controls.Add(this.SizeUpDown);
             this.enemyTab.Controls.Add(this.ChanBtn);
             this.enemyTab.Controls.Add(this.ChanLabel);
             this.enemyTab.Controls.Add(this.ChanUpDown);
@@ -267,6 +267,60 @@
             this.enemyTab.TabIndex = 0;
             this.enemyTab.Text = "Enemy";
             this.enemyTab.UseVisualStyleBackColor = true;
+            // 
+            // SizeBtn
+            // 
+            this.SizeBtn.Location = new System.Drawing.Point(61, 194);
+            this.SizeBtn.Name = "SizeBtn";
+            this.SizeBtn.Size = new System.Drawing.Size(75, 23);
+            this.SizeBtn.TabIndex = 38;
+            this.SizeBtn.Text = "Set Size";
+            this.SizeBtn.UseVisualStyleBackColor = true;
+            this.SizeBtn.Click += new System.EventHandler(this.SizeBtn_Click);
+            // 
+            // SizeLabel
+            // 
+            this.SizeLabel.AutoSize = true;
+            this.SizeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SizeLabel.Location = new System.Drawing.Point(6, 180);
+            this.SizeLabel.Name = "SizeLabel";
+            this.SizeLabel.Size = new System.Drawing.Size(71, 13);
+            this.SizeLabel.TabIndex = 37;
+            this.SizeLabel.Text = "Size of Wave";
+            // 
+            // SizeUpDown
+            // 
+            this.SizeUpDown.Location = new System.Drawing.Point(9, 196);
+            this.SizeUpDown.Name = "SizeUpDown";
+            this.SizeUpDown.Size = new System.Drawing.Size(47, 20);
+            this.SizeUpDown.TabIndex = 36;
+            // 
+            // ChanBtn
+            // 
+            this.ChanBtn.Location = new System.Drawing.Point(61, 154);
+            this.ChanBtn.Name = "ChanBtn";
+            this.ChanBtn.Size = new System.Drawing.Size(75, 23);
+            this.ChanBtn.TabIndex = 35;
+            this.ChanBtn.Text = "Set Channel";
+            this.ChanBtn.UseVisualStyleBackColor = true;
+            this.ChanBtn.Click += new System.EventHandler(this.ChanBtn_Click);
+            // 
+            // ChanLabel
+            // 
+            this.ChanLabel.AutoSize = true;
+            this.ChanLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ChanLabel.Location = new System.Drawing.Point(6, 140);
+            this.ChanLabel.Name = "ChanLabel";
+            this.ChanLabel.Size = new System.Drawing.Size(91, 13);
+            this.ChanLabel.TabIndex = 34;
+            this.ChanLabel.Text = "Spawner Channel";
+            // 
+            // ChanUpDown
+            // 
+            this.ChanUpDown.Location = new System.Drawing.Point(9, 156);
+            this.ChanUpDown.Name = "ChanUpDown";
+            this.ChanUpDown.Size = new System.Drawing.Size(47, 20);
+            this.ChanUpDown.TabIndex = 33;
             // 
             // ProbLabel
             // 
@@ -633,60 +687,6 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // ChanLabel
-            // 
-            this.ChanLabel.AutoSize = true;
-            this.ChanLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ChanLabel.Location = new System.Drawing.Point(6, 140);
-            this.ChanLabel.Name = "ChanLabel";
-            this.ChanLabel.Size = new System.Drawing.Size(91, 13);
-            this.ChanLabel.TabIndex = 34;
-            this.ChanLabel.Text = "Spawner Channel";
-            // 
-            // ChanUpDown
-            // 
-            this.ChanUpDown.Location = new System.Drawing.Point(9, 156);
-            this.ChanUpDown.Name = "ChanUpDown";
-            this.ChanUpDown.Size = new System.Drawing.Size(47, 20);
-            this.ChanUpDown.TabIndex = 33;
-            // 
-            // ChanBtn
-            // 
-            this.ChanBtn.Location = new System.Drawing.Point(61, 154);
-            this.ChanBtn.Name = "ChanBtn";
-            this.ChanBtn.Size = new System.Drawing.Size(75, 23);
-            this.ChanBtn.TabIndex = 35;
-            this.ChanBtn.Text = "Set Channel";
-            this.ChanBtn.UseVisualStyleBackColor = true;
-            this.ChanBtn.Click += new System.EventHandler(this.ChanBtn_Click);
-            // 
-            // CountBtn
-            // 
-            this.CountBtn.Location = new System.Drawing.Point(61, 194);
-            this.CountBtn.Name = "CountBtn";
-            this.CountBtn.Size = new System.Drawing.Size(75, 23);
-            this.CountBtn.TabIndex = 38;
-            this.CountBtn.Text = "Set Count";
-            this.CountBtn.UseVisualStyleBackColor = true;
-            this.CountBtn.Click += new System.EventHandler(this.CountBtn_Click);
-            // 
-            // CountLabel
-            // 
-            this.CountLabel.AutoSize = true;
-            this.CountLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CountLabel.Location = new System.Drawing.Point(6, 180);
-            this.CountLabel.Name = "CountLabel";
-            this.CountLabel.Size = new System.Drawing.Size(98, 13);
-            this.CountLabel.TabIndex = 37;
-            this.CountLabel.Text = "Enemies Per Wave";
-            // 
-            // CountUpDown
-            // 
-            this.CountUpDown.Location = new System.Drawing.Point(9, 196);
-            this.CountUpDown.Name = "CountUpDown";
-            this.CountUpDown.Size = new System.Drawing.Size(47, 20);
-            this.CountUpDown.TabIndex = 36;
-            // 
             // TableGen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -704,6 +704,8 @@
             this.Tabs.ResumeLayout(false);
             this.enemyTab.ResumeLayout(false);
             this.enemyTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SizeUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ChanUpDown)).EndInit();
             this.roomsTab.ResumeLayout(false);
             this.roomsTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.popUpDown)).EndInit();
@@ -715,8 +717,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.ColUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RowUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChanBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ChanUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CountUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -772,9 +772,9 @@
         private System.Windows.Forms.Button roomRightBtn;
         private System.Windows.Forms.Button roomLeftBtn;
         private System.Windows.Forms.Button roomUpBtn;
-        private System.Windows.Forms.Button CountBtn;
-        private System.Windows.Forms.Label CountLabel;
-        private System.Windows.Forms.NumericUpDown CountUpDown;
+        private System.Windows.Forms.Button SizeBtn;
+        private System.Windows.Forms.Label SizeLabel;
+        private System.Windows.Forms.NumericUpDown SizeUpDown;
         private System.Windows.Forms.Button ChanBtn;
         private System.Windows.Forms.Label ChanLabel;
         private System.Windows.Forms.NumericUpDown ChanUpDown;

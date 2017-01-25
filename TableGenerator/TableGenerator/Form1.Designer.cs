@@ -82,6 +82,18 @@
             this.FilenameText = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.CaptianBtn = new System.Windows.Forms.Button();
+            this.TeamBtn = new System.Windows.Forms.Button();
+            this.TeamLbl = new System.Windows.Forms.Label();
+            this.TeamUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.HeadDrop = new System.Windows.Forms.NumericUpDown();
+            this.BodyDrop = new System.Windows.Forms.NumericUpDown();
+            this.LegsDrop = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.ProbabilityBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ProbUpDown)).BeginInit();
             this.Tabs.SuspendLayout();
@@ -97,6 +109,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.ColUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RowUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChanBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TeamUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HeadDrop)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BodyDrop)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LegsDrop)).BeginInit();
             this.SuspendLayout();
             // 
             // Heads
@@ -145,7 +162,7 @@
             // 
             // ProbabilityBar
             // 
-            this.ProbabilityBar.Location = new System.Drawing.Point(148, 51);
+            this.ProbabilityBar.Location = new System.Drawing.Point(152, 166);
             this.ProbabilityBar.Maximum = 100;
             this.ProbabilityBar.Name = "ProbabilityBar";
             this.ProbabilityBar.Size = new System.Drawing.Size(100, 45);
@@ -155,7 +172,7 @@
             // 
             // AddWaveBtn
             // 
-            this.AddWaveBtn.Location = new System.Drawing.Point(87, 257);
+            this.AddWaveBtn.Location = new System.Drawing.Point(351, 257);
             this.AddWaveBtn.Name = "AddWaveBtn";
             this.AddWaveBtn.Size = new System.Drawing.Size(75, 23);
             this.AddWaveBtn.TabIndex = 8;
@@ -165,7 +182,7 @@
             // 
             // RemoveBtn
             // 
-            this.RemoveBtn.Location = new System.Drawing.Point(189, 257);
+            this.RemoveBtn.Location = new System.Drawing.Point(432, 257);
             this.RemoveBtn.Name = "RemoveBtn";
             this.RemoveBtn.Size = new System.Drawing.Size(75, 23);
             this.RemoveBtn.TabIndex = 9;
@@ -175,7 +192,7 @@
             // 
             // AddEnemyBtn
             // 
-            this.AddEnemyBtn.Location = new System.Drawing.Point(6, 257);
+            this.AddEnemyBtn.Location = new System.Drawing.Point(270, 257);
             this.AddEnemyBtn.Name = "AddEnemyBtn";
             this.AddEnemyBtn.Size = new System.Drawing.Size(75, 23);
             this.AddEnemyBtn.TabIndex = 10;
@@ -189,13 +206,13 @@
             this.enemyTree.HideSelection = false;
             this.enemyTree.Location = new System.Drawing.Point(270, 6);
             this.enemyTree.Name = "enemyTree";
-            this.enemyTree.Size = new System.Drawing.Size(377, 274);
+            this.enemyTree.Size = new System.Drawing.Size(377, 245);
             this.enemyTree.TabIndex = 12;
             this.enemyTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
             // DownBtn
             // 
-            this.DownBtn.Location = new System.Drawing.Point(189, 228);
+            this.DownBtn.Location = new System.Drawing.Point(189, 257);
             this.DownBtn.Name = "DownBtn";
             this.DownBtn.Size = new System.Drawing.Size(75, 23);
             this.DownBtn.TabIndex = 13;
@@ -205,7 +222,7 @@
             // 
             // UpBtn
             // 
-            this.UpBtn.Location = new System.Drawing.Point(189, 199);
+            this.UpBtn.Location = new System.Drawing.Point(189, 228);
             this.UpBtn.Name = "UpBtn";
             this.UpBtn.Size = new System.Drawing.Size(75, 23);
             this.UpBtn.TabIndex = 14;
@@ -215,7 +232,7 @@
             // 
             // ProbUpDown
             // 
-            this.ProbUpDown.Location = new System.Drawing.Point(148, 25);
+            this.ProbUpDown.Location = new System.Drawing.Point(152, 140);
             this.ProbUpDown.Name = "ProbUpDown";
             this.ProbUpDown.Size = new System.Drawing.Size(100, 20);
             this.ProbUpDown.TabIndex = 15;
@@ -239,6 +256,17 @@
             // 
             // enemyTab
             // 
+            this.enemyTab.Controls.Add(this.LegsDrop);
+            this.enemyTab.Controls.Add(this.BodyDrop);
+            this.enemyTab.Controls.Add(this.HeadDrop);
+            this.enemyTab.Controls.Add(this.label4);
+            this.enemyTab.Controls.Add(this.label3);
+            this.enemyTab.Controls.Add(this.label2);
+            this.enemyTab.Controls.Add(this.label1);
+            this.enemyTab.Controls.Add(this.TeamBtn);
+            this.enemyTab.Controls.Add(this.TeamLbl);
+            this.enemyTab.Controls.Add(this.TeamUpDown);
+            this.enemyTab.Controls.Add(this.CaptianBtn);
             this.enemyTab.Controls.Add(this.SizeBtn);
             this.enemyTab.Controls.Add(this.SizeLabel);
             this.enemyTab.Controls.Add(this.SizeUpDown);
@@ -270,7 +298,7 @@
             // 
             // SizeBtn
             // 
-            this.SizeBtn.Location = new System.Drawing.Point(61, 194);
+            this.SizeBtn.Location = new System.Drawing.Point(61, 180);
             this.SizeBtn.Name = "SizeBtn";
             this.SizeBtn.Size = new System.Drawing.Size(75, 23);
             this.SizeBtn.TabIndex = 38;
@@ -282,7 +310,7 @@
             // 
             this.SizeLabel.AutoSize = true;
             this.SizeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SizeLabel.Location = new System.Drawing.Point(6, 180);
+            this.SizeLabel.Location = new System.Drawing.Point(6, 166);
             this.SizeLabel.Name = "SizeLabel";
             this.SizeLabel.Size = new System.Drawing.Size(71, 13);
             this.SizeLabel.TabIndex = 37;
@@ -290,14 +318,14 @@
             // 
             // SizeUpDown
             // 
-            this.SizeUpDown.Location = new System.Drawing.Point(9, 196);
+            this.SizeUpDown.Location = new System.Drawing.Point(9, 182);
             this.SizeUpDown.Name = "SizeUpDown";
             this.SizeUpDown.Size = new System.Drawing.Size(47, 20);
             this.SizeUpDown.TabIndex = 36;
             // 
             // ChanBtn
             // 
-            this.ChanBtn.Location = new System.Drawing.Point(61, 154);
+            this.ChanBtn.Location = new System.Drawing.Point(61, 140);
             this.ChanBtn.Name = "ChanBtn";
             this.ChanBtn.Size = new System.Drawing.Size(75, 23);
             this.ChanBtn.TabIndex = 35;
@@ -309,7 +337,7 @@
             // 
             this.ChanLabel.AutoSize = true;
             this.ChanLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ChanLabel.Location = new System.Drawing.Point(6, 140);
+            this.ChanLabel.Location = new System.Drawing.Point(6, 126);
             this.ChanLabel.Name = "ChanLabel";
             this.ChanLabel.Size = new System.Drawing.Size(91, 13);
             this.ChanLabel.TabIndex = 34;
@@ -317,7 +345,7 @@
             // 
             // ChanUpDown
             // 
-            this.ChanUpDown.Location = new System.Drawing.Point(9, 156);
+            this.ChanUpDown.Location = new System.Drawing.Point(9, 142);
             this.ChanUpDown.Name = "ChanUpDown";
             this.ChanUpDown.Size = new System.Drawing.Size(47, 20);
             this.ChanUpDown.TabIndex = 33;
@@ -326,7 +354,7 @@
             // 
             this.ProbLabel.AutoSize = true;
             this.ProbLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ProbLabel.Location = new System.Drawing.Point(145, 9);
+            this.ProbLabel.Location = new System.Drawing.Point(149, 124);
             this.ProbLabel.Name = "ProbLabel";
             this.ProbLabel.Size = new System.Drawing.Size(43, 13);
             this.ProbLabel.TabIndex = 19;
@@ -600,6 +628,7 @@
             // 
             // WIP
             // 
+            this.WIP.Controls.Add(this.pictureBox1);
             this.WIP.Controls.Add(this.ColUpDown);
             this.WIP.Controls.Add(this.RowUpDown);
             this.WIP.Controls.Add(this.ChanBar);
@@ -613,7 +642,7 @@
             // 
             // ColUpDown
             // 
-            this.ColUpDown.Location = new System.Drawing.Point(254, 211);
+            this.ColUpDown.Location = new System.Drawing.Point(443, 185);
             this.ColUpDown.Maximum = new decimal(new int[] {
             25,
             0,
@@ -631,7 +660,7 @@
             // 
             // RowUpDown
             // 
-            this.RowUpDown.Location = new System.Drawing.Point(298, 211);
+            this.RowUpDown.Location = new System.Drawing.Point(487, 185);
             this.RowUpDown.Maximum = new decimal(new int[] {
             25,
             0,
@@ -649,7 +678,7 @@
             // 
             // ChanBar
             // 
-            this.ChanBar.Location = new System.Drawing.Point(278, 144);
+            this.ChanBar.Location = new System.Drawing.Point(467, 118);
             this.ChanBar.Maximum = 100;
             this.ChanBar.Name = "ChanBar";
             this.ChanBar.Size = new System.Drawing.Size(100, 45);
@@ -687,6 +716,129 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::TableGenerator.Properties.Resources.Dickbut;
+            this.pictureBox1.Location = new System.Drawing.Point(74, 48);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(240, 194);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 35;
+            this.pictureBox1.TabStop = false;
+            // 
+            // CaptianBtn
+            // 
+            this.CaptianBtn.Location = new System.Drawing.Point(9, 248);
+            this.CaptianBtn.Name = "CaptianBtn";
+            this.CaptianBtn.Size = new System.Drawing.Size(100, 23);
+            this.CaptianBtn.TabIndex = 39;
+            this.CaptianBtn.Text = "Toggle Captian";
+            this.CaptianBtn.UseVisualStyleBackColor = true;
+            this.CaptianBtn.Click += new System.EventHandler(this.CaptianBtn_Click);
+            // 
+            // TeamBtn
+            // 
+            this.TeamBtn.Location = new System.Drawing.Point(61, 220);
+            this.TeamBtn.Name = "TeamBtn";
+            this.TeamBtn.Size = new System.Drawing.Size(75, 23);
+            this.TeamBtn.TabIndex = 42;
+            this.TeamBtn.Text = "Set Team";
+            this.TeamBtn.UseVisualStyleBackColor = true;
+            this.TeamBtn.Click += new System.EventHandler(this.TeamBtn_Click);
+            // 
+            // TeamLbl
+            // 
+            this.TeamLbl.AutoSize = true;
+            this.TeamLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TeamLbl.Location = new System.Drawing.Point(6, 206);
+            this.TeamLbl.Name = "TeamLbl";
+            this.TeamLbl.Size = new System.Drawing.Size(47, 13);
+            this.TeamLbl.TabIndex = 41;
+            this.TeamLbl.Text = "AI Team";
+            // 
+            // TeamUpDown
+            // 
+            this.TeamUpDown.Location = new System.Drawing.Point(9, 222);
+            this.TeamUpDown.Name = "TeamUpDown";
+            this.TeamUpDown.Size = new System.Drawing.Size(47, 20);
+            this.TeamUpDown.TabIndex = 40;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(134, 3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(61, 13);
+            this.label1.TabIndex = 43;
+            this.label1.Text = "Drop Rates";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(133, 20);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(23, 20);
+            this.label2.TabIndex = 44;
+            this.label2.Text = "%";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(133, 60);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(23, 20);
+            this.label3.TabIndex = 45;
+            this.label3.Text = "%";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(133, 100);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(23, 20);
+            this.label4.TabIndex = 46;
+            this.label4.Text = "%";
+            // 
+            // HeadDrop
+            // 
+            this.HeadDrop.Location = new System.Drawing.Point(162, 20);
+            this.HeadDrop.Name = "HeadDrop";
+            this.HeadDrop.Size = new System.Drawing.Size(47, 20);
+            this.HeadDrop.TabIndex = 47;
+            this.HeadDrop.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            // 
+            // BodyDrop
+            // 
+            this.BodyDrop.Location = new System.Drawing.Point(162, 60);
+            this.BodyDrop.Name = "BodyDrop";
+            this.BodyDrop.Size = new System.Drawing.Size(47, 20);
+            this.BodyDrop.TabIndex = 48;
+            this.BodyDrop.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            // 
+            // LegsDrop
+            // 
+            this.LegsDrop.Location = new System.Drawing.Point(162, 100);
+            this.LegsDrop.Name = "LegsDrop";
+            this.LegsDrop.Size = new System.Drawing.Size(47, 20);
+            this.LegsDrop.TabIndex = 49;
+            this.LegsDrop.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            // 
             // TableGen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -717,6 +869,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.ColUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RowUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ChanBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TeamUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HeadDrop)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BodyDrop)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LegsDrop)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -778,6 +935,18 @@
         private System.Windows.Forms.Button ChanBtn;
         private System.Windows.Forms.Label ChanLabel;
         private System.Windows.Forms.NumericUpDown ChanUpDown;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button CaptianBtn;
+        private System.Windows.Forms.Button TeamBtn;
+        private System.Windows.Forms.Label TeamLbl;
+        private System.Windows.Forms.NumericUpDown TeamUpDown;
+        private System.Windows.Forms.NumericUpDown LegsDrop;
+        private System.Windows.Forms.NumericUpDown BodyDrop;
+        private System.Windows.Forms.NumericUpDown HeadDrop;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }
 

@@ -439,7 +439,11 @@ namespace TableGenerator
 
             if (valid)
             {
-                string input = Heads.Text + "/" + Bodys.Text + "/" + Legs.Text + "/" + ProbUpDown.Value.ToString();
+                string input = ""; //Heads.Text + "/" + Bodys.Text + "/" + Legs.Text + "/" + ProbUpDown.Value.ToString();
+                input += Heads.Text + "%" + HeadDrop.Value + "/";
+                input += Bodys.Text + "%" + BodyDrop.Value + "/";
+                input += Legs.Text + "%" + LegsDrop.Value + "/";
+                input += prob;
                 enemyTree.BeginUpdate();
                 enemyTree.Nodes[enemyTree.SelectedNode.Index].Nodes.Add(input);
                 enemyTree.Nodes[enemyTree.SelectedNode.Index].Expand();
@@ -602,7 +606,7 @@ namespace TableGenerator
                         foreach (TreeNode parent in enemyTree.Nodes)
                         {
                             writer.WriteStartElement("Wave");          //Waves
-                            string[] sep = new string[] { " ", "<", ":", ">" };
+                            string[] sep = new string[] { " ", "<", ":", ">", "[", "]", "/", "%" };
                             string[] result = parent.Text.Split(sep, StringSplitOptions.RemoveEmptyEntries);
 
                             writer.WriteAttributeString("Num", result[0].Remove(0, 4));
@@ -612,23 +616,61 @@ namespace TableGenerator
                             int eCount = 1;
                             foreach (TreeNode child in parent.Nodes)
                             {
-                                string[] temp = new string[4];
+                                string[] temp = child.Text.Split(sep, StringSplitOptions.RemoveEmptyEntries);
                                 int index = 0;
+                                bool safe = false;
                                 writer.WriteStartElement("Enemy");  //Enemy
                                 writer.WriteAttributeString("Num", eCount.ToString());
 
-                                foreach (char letter in child.Text)
+                                writer.WriteStartElement("Head");   //Head
+                                writer.WriteAttributeString("Drop", temp[index + 1]);
+                                writer.WriteString(temp[index]);
+                                index += 2;
+                                writer.WriteEndElement();           //Head
+
+                                writer.WriteStartElement("Body");   //Body
+                                writer.WriteAttributeString("Drop", temp[index + 1]);
+                                writer.WriteString(temp[index]);
+                                index += 2;
+                                writer.WriteEndElement();           //Body
+
+                                writer.WriteStartElement("Legs");   //Legs
+                                writer.WriteAttributeString("Drop", temp[index + 1]);
+                                writer.WriteString(temp[index]);
+                                index += 2;
+                                writer.WriteEndElement();           //Legs
+
+                                writer.WriteElementString("Prob", temp[index]); //Prob
+                                index += 1;
+
+                                safe = (index < temp.Length);
+
+                                if (safe && temp[index] == "Channel")   //Channel
                                 {
-                                    if (letter == '/')
-                                        index++;
-                                    else
-                                        temp[index] += letter;
+                                    writer.WriteElementString(temp[index], temp[index + 1]);
+                                    index += 2;
+                                }
+                                else
+                                {
+                                    writer.WriteElementString("Channel", "-1");
                                 }
 
-                                writer.WriteElementString("Head", temp[0]); //Head
-                                writer.WriteElementString("Body", temp[1]); //Body
-                                writer.WriteElementString("Legs", temp[2]); //Legs
-                                writer.WriteElementString("Prob", temp[3]); //Prob
+                                safe = (index < temp.Length);
+
+                                if (safe && (temp[index] == "P" || temp[index] == "C"))     //Team
+                                {
+                                    writer.WriteStartElement("Team");   //Team
+                                    writer.WriteAttributeString("Role", temp[index]);
+                                    writer.WriteString(temp[index + 1]);
+                                    writer.WriteEndElement();           //Team
+                                }
+                                else
+                                {
+                                    writer.WriteStartElement("Team");   //Team
+                                    writer.WriteAttributeString("Role", "N");
+                                    writer.WriteString("-1");
+                                    writer.WriteEndElement();           //Team
+                                }
 
                                 writer.WriteEndElement();                   //Enemy
                                 eCount++;
@@ -903,10 +945,16 @@ namespace TableGenerator
                         {
                             string temp = "";
 
-                            temp += child.SelectSingleNode("Head").InnerText + "/";
-                            temp += child.SelectSingleNode("Body").InnerText + "/";
-                            temp += child.SelectSingleNode("Legs").InnerText + "/";
-                            temp += child.SelectSingleNode("Prob").InnerText;
+                            temp += child.ChildNodes[0].InnerText + "%" + child.ChildNodes[0].Attributes[0].Value + "/";
+                            temp += child.ChildNodes[1].InnerText + "%" + child.ChildNodes[1].Attributes[0].Value + "/";
+                            temp += child.ChildNodes[2].InnerText + "%" + child.ChildNodes[2].Attributes[0].Value + "/";
+                            temp += child.ChildNodes[3].InnerText;
+
+                            if (!(child.ChildNodes[4].InnerText == "-1"))
+                                temp += "<Channel:" + child.ChildNodes[4].InnerText + ">";
+
+                            if (!(child.ChildNodes[5].InnerText == "-1"))
+                                temp += "[" + child.ChildNodes[5].Attributes[0].Value + ":" + child.ChildNodes[5].InnerText + "]";
 
                             enemyTree.BeginUpdate();
                             enemyTree.Nodes[waveCount - 1].Nodes.Add(temp);
@@ -1151,7 +1199,7 @@ namespace TableGenerator
         {
             if (enemyTree.SelectedNode == null)
             {
-                MessageBox.Show("Plese select a wave", "Error",
+                MessageBox.Show("Plese select a wave or enemy", "Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 return;
             }
@@ -1186,9 +1234,47 @@ namespace TableGenerator
                     count++;
                 }
             }
+            else if (enemyTree.SelectedNode.Parent != null)
+            {
+                string text = enemyTree.SelectedNode.Text;
+                if (text.Contains("<Channel:"))
+                {
+                    int start = 0;
+                    int end = 0;
+                    foreach (char item in text)
+                    {
+                        if (item == '<')
+                            end = start;
+                        else if (item == '>')
+                            break;
+                        else if (end == 0)
+                            start++;
+                        else
+                            end++;
+                    }
+                    start += 9;
+                    end += 1;
+                    text = text.Remove(start, end - start);
+                    text = text.Insert(start, ChanUpDown.Value.ToString());
+                    enemyTree.SelectedNode.Text = text;
+                }
+                else
+                {
+                    int start = 0;
+                    foreach (char item in text)
+                    {
+                        if (item == '[')
+                            break;
+                        else
+                            start++;
+                    }
+                    text = text.Insert(start, "<Channel:" + ChanUpDown.Value + ">");
+                    enemyTree.SelectedNode.Text = text;
+                }
+            }
             else
             {
-                MessageBox.Show("Plese select a wave", "Error",
+                MessageBox.Show("Plese select a wave or enemy", "Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
         }
@@ -1243,6 +1329,89 @@ namespace TableGenerator
             else
             {
                 MessageBox.Show("Plese select a wave", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+        }
+
+        private void TeamBtn_Click(object sender, EventArgs e)
+        {
+            if (enemyTree.SelectedNode == null)
+            {
+                MessageBox.Show("Plese select an enemy", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                return;
+            }
+            if (enemyTree.SelectedNode.Parent != null)
+            {
+                string text = enemyTree.SelectedNode.Text;
+                int start = 0;
+                if (text.Contains("["))
+                {
+                    foreach (char item in text)
+                    {
+                        if (item == '[')
+                            break;
+                        else
+                            start++;
+                    }
+                    start += 3;
+                    int count = text.Length - start - 1;
+                    text = text.Remove(start, count);
+                    text = text.Insert(start, TeamUpDown.Value.ToString());
+                    enemyTree.SelectedNode.Text = text;
+                }
+                else
+                {
+                    enemyTree.SelectedNode.Text += "[P:" + TeamUpDown.Value + "]";
+                }
+            }
+            else
+            {
+                MessageBox.Show("Plese select an enemy", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+        }
+
+        private void CaptianBtn_Click(object sender, EventArgs e)
+        {
+            if (enemyTree.SelectedNode == null)
+            {
+                MessageBox.Show("Plese select an enemy", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                return;
+            }
+            if (enemyTree.SelectedNode.Parent != null)
+            {
+                string text = enemyTree.SelectedNode.Text;
+                int start = 0;
+                if (text.Contains("["))
+                {
+                    foreach (char item in text)
+                    {
+                        if (item == '[')
+                            break;
+                        else
+                            start++;
+                    }
+                    start += 1;
+
+                    char toggle = text[start];
+                    if (toggle == 'C') toggle = 'P';
+                    else if (toggle == 'P') toggle = 'C';
+
+                    int count = 1;
+                    text = text.Remove(start, count);
+                    text = text.Insert(start, toggle.ToString());
+                    enemyTree.SelectedNode.Text = text;
+                }
+                else
+                {
+                    enemyTree.SelectedNode.Text += "[C:" + TeamUpDown.Value + "]";
+                }
+            }
+            else
+            {
+                MessageBox.Show("Plese select an enemy", "Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
         }

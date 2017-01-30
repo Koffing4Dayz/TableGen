@@ -388,14 +388,26 @@ namespace TableGenerator
             {
                 enemyTree.BeginUpdate();
                 enemyTree.SelectedNode.Remove();
+
                 int count = enemyTree.Nodes.Count;
                 for (int i = 0; i < count; i++)
                 {
-                    enemyTree.Nodes[i].Text = "Wave" + (i + 1).ToString();
+                    string text = enemyTree.Nodes[i].Text;
+                    int start = 4;
+                    int end = 0;
+                    foreach (char item in text)
+                    {
+                        if (item == ' ')
+                            break;
+                        end++;
+                    }
+                    text = text.Remove(start, end - start);
+                    text = text.Insert(start, (i + 1).ToString());
+                    enemyTree.Nodes[i].Text = text;
                 }
-                enemyTree.EndUpdate();
 
                 waveCount--;
+                enemyTree.EndUpdate();
             }
             else if (enemyTree.SelectedNode.Parent != null)
             {
@@ -479,7 +491,18 @@ namespace TableGenerator
                 int count = enemyTree.Nodes.Count;
                 for (int i = 0; i < count; i++)
                 {
-                    enemyTree.Nodes[i].Text = "Wave" + (i + 1).ToString();
+                    string text = enemyTree.Nodes[i].Text;
+                    int start = 4;
+                    int end = 0;
+                    foreach (char item in text)
+                    {
+                        if (item == ' ')
+                            break;
+                        end++;
+                    }
+                    text = text.Remove(start, end - start);
+                    text = text.Insert(start, (i + 1).ToString());
+                    enemyTree.Nodes[i].Text = text;
                 }
             }
             else if (enemyTree.SelectedNode.Parent != null)
@@ -508,7 +531,18 @@ namespace TableGenerator
                 int count = enemyTree.Nodes.Count;
                 for (int i = 0; i < count; i++)
                 {
-                    enemyTree.Nodes[i].Text = "Wave" + (i + 1).ToString();
+                    string text = enemyTree.Nodes[i].Text;
+                    int start = 4;
+                    int end = 0;
+                    foreach (char item in text)
+                    {
+                        if (item == ' ')
+                            break;
+                        end++;
+                    }
+                    text = text.Remove(start, end - start);
+                    text = text.Insert(start, (i + 1).ToString());
+                    enemyTree.Nodes[i].Text = text;
                 }
             }
             else if (enemyTree.SelectedNode.Parent != null && enemyTree.SelectedNode.Index < enemyTree.SelectedNode.Parent.Nodes.Count - 1)
@@ -910,12 +944,12 @@ namespace TableGenerator
 
         private void DropUpDown_ValueChanged(object sender, EventArgs e)
         {
-            ChanBar.Value = (int)ChanUpDown.Value;
+            DickButtBar.Value = (int)ChanUpDown.Value;
         }
 
         private void DropBar_Scroll(object sender, EventArgs e)
         {
-            ChanUpDown.Value = ChanBar.Value;
+            ChanUpDown.Value = DickButtBar.Value;
         }
 
         private void LoadFile(string filename)
@@ -1414,6 +1448,14 @@ namespace TableGenerator
                 MessageBox.Show("Plese select an enemy", "Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
+        }
+
+        private void DickButtBar_Scroll(object sender, EventArgs e)
+        {
+            Size temp = new Size();
+            temp.Width = 240 * DickButtBar.Value;
+            temp.Height = 194 * DickButtBar.Value;
+            pictureBox1.Size = temp;
         }
     }
 }

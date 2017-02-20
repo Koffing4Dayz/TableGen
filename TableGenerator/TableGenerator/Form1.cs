@@ -748,9 +748,12 @@ namespace TableGenerator
                         }
 
                         string start = "";
+                        string boss = "";
                         foreach (TreeNode item in roomTree.Nodes)
                             if (item.Text.Contains("*S"))
                                 start = item.Text.Remove(item.Text.Length - 16, 16);
+                            else if (item.Text.Contains("*B"))
+                                boss = item.Text.Remove(item.Text.Length - 12, 12);
 
                         if (start == "")
                         {
@@ -759,7 +762,15 @@ namespace TableGenerator
                             return;
                         }
 
+                        if (boss == "")
+                        {
+                            MessageBox.Show("Plese set a boss room", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            return;
+                        }
+
                         int startIndex = -2;
+                        int bossIndex = -2;
 
                         foreach (Button item in gridPanel.Controls)
                         {
@@ -770,12 +781,21 @@ namespace TableGenerator
                                 color = color.Remove(color.Length - 1, 1);
                                 if (color == start)
                                     startIndex = -1;
+                                else if (color == boss)
+                                    bossIndex = -1;
                             }
                         }
 
                         if (startIndex == -2)
                         {
                             MessageBox.Show("Plese add a starting room", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            return;
+                        }
+
+                        if (bossIndex == -2)
+                        {
+                            MessageBox.Show("Plese add a boss room", "Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                             return;
                         }
@@ -861,6 +881,10 @@ namespace TableGenerator
                                         if (color == start)
                                             startIndex = count;
 
+                                    if (bossIndex == -1)
+                                        if (color == boss)
+                                            bossIndex = count;
+
                                     writer.WriteElementString("Y", (x * .5).ToString());
                                     writer.WriteElementString("X", (y * .5).ToString());
                                     writer.WriteElementString("Table", color);
@@ -902,6 +926,8 @@ namespace TableGenerator
                             string tableColor = item.Text;
                             if (tableColor.Contains("*S"))
                                 tableColor = tableColor.Remove(item.Text.Length - 16, 16);
+                            else if (tableColor.Contains("*B"))
+                                tableColor = tableColor.Remove(item.Text.Length - 12, 12);
 
                             writer.WriteStartElement(tableColor);   //Color
 
@@ -931,6 +957,10 @@ namespace TableGenerator
                         }
 
                         writer.WriteEndElement();               //Tables
+
+                        writer.WriteStartElement("Boss");      //Boss
+                        writer.WriteElementString("Index", bossIndex.ToString());
+                        writer.WriteEndElement();               //Boss
 
                         writer.WriteEndElement();           //Arena
                         writer.WriteEndDocument();
@@ -1005,11 +1035,14 @@ namespace TableGenerator
                     XmlNode rooms = loader.ChildNodes[1].ChildNodes[0];
                     XmlNode start = loader.ChildNodes[1].ChildNodes[1];
                     XmlNode table = loader.ChildNodes[1].ChildNodes[2];
+                    XmlNode boss  = loader.ChildNodes[1].ChildNodes[3];
 
                     foreach (TreeNode item in roomTree.Nodes)
                     {
                         if (item.Text.Contains("*S"))
                             item.Text = item.Text.Remove(item.Text.Length - 16, 16);
+                        else if (item.Text.Contains("*B"))
+                            item.Text = item.Text.Remove(item.Text.Length - 12, 12);
                         item.Nodes.Clear();
                     }
 
@@ -1022,6 +1055,7 @@ namespace TableGenerator
                     }
 
                     string startIndex = start.ChildNodes[0].InnerText;
+                    string bossIndex = boss.ChildNodes[0].InnerText;
 
                     foreach (XmlNode room in rooms.ChildNodes)
                     {
@@ -1077,6 +1111,11 @@ namespace TableGenerator
                             foreach (TreeNode item in roomTree.Nodes)
                                 if (item.Text == color)
                                     item.Text += " *Starting Room*";
+
+                        if (index == bossIndex)
+                            foreach (TreeNode item in roomTree.Nodes)
+                                if (item.Text == color)
+                                    item.Text += " *Boss Room*";
                     }
 
                     foreach (XmlNode item in table)
@@ -1164,6 +1203,38 @@ namespace TableGenerator
 
         private void startRoomBtn_Click(object sender, EventArgs e)
         {
+            if (roomTree.SelectedNode == null) 
+            {
+                MessageBox.Show("Invalid Selection", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                return;
+            }
+
+            if (roomTree.SelectedNode.Parent != null)
+            {
+                roomTree.SelectedNode = roomTree.SelectedNode.Parent;
+            }
+
+            if (roomTree.SelectedNode.Text.Contains(" *Boss Room*"))
+            {
+                MessageBox.Show("Selected room already taged", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                return;
+            }
+
+            foreach (TreeNode item in roomTree.Nodes)
+            {
+                if (item.Text.Contains(" *Starting Room*"))
+                {
+                    item.Text = item.Text.Remove(item.Text.Length - 16, 16);
+                }
+            }
+
+            roomTree.SelectedNode.Text += " *Starting Room*";
+        }
+
+        private void bossRoomBtn_Click(object sender, EventArgs e)
+        {
             if (roomTree.SelectedNode == null)
             {
                 MessageBox.Show("Invalid Selection", "Error",
@@ -1176,15 +1247,22 @@ namespace TableGenerator
                 roomTree.SelectedNode = roomTree.SelectedNode.Parent;
             }
 
+            if (roomTree.SelectedNode.Text.Contains(" *Starting Room*"))
+            {
+                MessageBox.Show("Selected room already taged", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                return;
+            }
+
             foreach (TreeNode item in roomTree.Nodes)
             {
-                if (item.Text.Contains(" *Starting Room*"))
+                if (item.Text.Contains(" *Boss Room*"))
                 {
-                    item.Text = item.Text.Remove(item.Text.Length - 16, 16);
+                    item.Text = item.Text.Remove(item.Text.Length - 12, 12);
                 }
             }
 
-            roomTree.SelectedNode.Text += " *Starting Room*";
+            roomTree.SelectedNode.Text += " *Boss Room*";
         }
 
         private void roomDownBtn_Click(object sender, EventArgs e)
@@ -1457,5 +1535,6 @@ namespace TableGenerator
             temp.Height = 194 * DickButtBar.Value;
             pictureBox1.Size = temp;
         }
+
     }
 }

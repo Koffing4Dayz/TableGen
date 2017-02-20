@@ -86,14 +86,15 @@
             this.Rooms = new System.Windows.Forms.ComboBox();
             this.roomsLabels = new System.Windows.Forms.Label();
             this.WIP = new System.Windows.Forms.TabPage();
+            this.DickButtBar = new System.Windows.Forms.TrackBar();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.ColUpDown = new System.Windows.Forms.NumericUpDown();
             this.RowUpDown = new System.Windows.Forms.NumericUpDown();
-            this.DickButtBar = new System.Windows.Forms.TrackBar();
             this.exportBtn = new System.Windows.Forms.Button();
             this.FilenameText = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.bossRoomBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ProbabilityBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ProbUpDown)).BeginInit();
             this.Tabs.SuspendLayout();
@@ -110,10 +111,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.roomProbUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.roomProbBar)).BeginInit();
             this.WIP.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DickButtBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ColUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RowUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DickButtBar)).BeginInit();
             this.SuspendLayout();
             // 
             // Heads
@@ -505,6 +506,7 @@
             // 
             // roomsTab
             // 
+            this.roomsTab.Controls.Add(this.bossRoomBtn);
             this.roomsTab.Controls.Add(this.roomDownBtn);
             this.roomsTab.Controls.Add(this.roomRightBtn);
             this.roomsTab.Controls.Add(this.roomLeftBtn);
@@ -652,7 +654,7 @@
             // 
             // startRoomBtn
             // 
-            this.startRoomBtn.Location = new System.Drawing.Point(193, 231);
+            this.startRoomBtn.Location = new System.Drawing.Point(193, 210);
             this.startRoomBtn.Name = "startRoomBtn";
             this.startRoomBtn.Size = new System.Drawing.Size(106, 23);
             this.startRoomBtn.TabIndex = 39;
@@ -695,7 +697,7 @@
             this.roomTree.HideSelection = false;
             this.roomTree.Location = new System.Drawing.Point(112, 6);
             this.roomTree.Name = "roomTree";
-            this.roomTree.Size = new System.Drawing.Size(254, 219);
+            this.roomTree.Size = new System.Drawing.Size(254, 198);
             this.roomTree.TabIndex = 35;
             // 
             // autoConCheck
@@ -753,6 +755,16 @@
             this.WIP.Text = "WIP";
             this.WIP.UseVisualStyleBackColor = true;
             // 
+            // DickButtBar
+            // 
+            this.DickButtBar.Location = new System.Drawing.Point(33, 223);
+            this.DickButtBar.Maximum = 5;
+            this.DickButtBar.Name = "DickButtBar";
+            this.DickButtBar.Size = new System.Drawing.Size(100, 45);
+            this.DickButtBar.TabIndex = 30;
+            this.DickButtBar.Value = 1;
+            this.DickButtBar.Scroll += new System.EventHandler(this.DickButtBar_Scroll);
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::TableGenerator.Properties.Resources.Dickbut;
@@ -799,16 +811,6 @@
             0,
             0});
             // 
-            // DickButtBar
-            // 
-            this.DickButtBar.Location = new System.Drawing.Point(33, 223);
-            this.DickButtBar.Maximum = 5;
-            this.DickButtBar.Name = "DickButtBar";
-            this.DickButtBar.Size = new System.Drawing.Size(100, 45);
-            this.DickButtBar.TabIndex = 30;
-            this.DickButtBar.Value = 1;
-            this.DickButtBar.Scroll += new System.EventHandler(this.DickButtBar_Scroll);
-            // 
             // exportBtn
             // 
             this.exportBtn.Location = new System.Drawing.Point(96, 323);
@@ -839,6 +841,16 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // bossRoomBtn
+            // 
+            this.bossRoomBtn.Location = new System.Drawing.Point(193, 234);
+            this.bossRoomBtn.Name = "bossRoomBtn";
+            this.bossRoomBtn.Size = new System.Drawing.Size(106, 23);
+            this.bossRoomBtn.TabIndex = 45;
+            this.bossRoomBtn.Text = "Tag Boss Room";
+            this.bossRoomBtn.UseVisualStyleBackColor = true;
+            this.bossRoomBtn.Click += new System.EventHandler(this.bossRoomBtn_Click);
             // 
             // TableGen
             // 
@@ -871,10 +883,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.roomProbBar)).EndInit();
             this.WIP.ResumeLayout(false);
             this.WIP.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DickButtBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ColUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RowUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DickButtBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -948,6 +960,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button bossRoomBtn;
     }
 }
 
